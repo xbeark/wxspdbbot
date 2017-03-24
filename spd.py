@@ -122,9 +122,9 @@ class MyWXBot(WXBot):
                             # r.set(msg['user']['id'] + url, 1, ex = 1296000)
 
                             longUrl =  '''https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe9d7e3d98ec68189&redirect_uri=https://weixin.spdbccc.com.cn/wxrp-page-redpacketsharepage/judgeOpenId?noCheck%3D1%26param1%3D''' \
-                                        + str(tinyParam.split(';')[0]).encode("ascii") \
+                                        + str(url.split(';')[0]).encode("ascii") \
                                         + '''%26hash%3D''' \
-                                        + str(tinyParam.split(';')[1]).encode("ascii") \
+                                        + str(url.split(';')[1]).encode("ascii") \
                                         + '''%26dataDt%3D''' \
                                         + datetime.datetime.now().strftime('%Y%m%d') \
                                         + '''&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect'''
