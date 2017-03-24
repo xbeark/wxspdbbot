@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>浦发红包云服务</title>
+    <script>
+        // 填一个json给我，格式如下
+        // window.pufaData = %json%;
+        window.pufaData = {
+            "packets": [
+//                {
+//                    "user": "张三",
+//                    "url": "https://www.baidu.com"
+//                }
+            ]
+        };
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return decodeURIComponent(r[2]);
+            }
+            return null;
+        }
+        for (i = 0; i < 5; i++) {
+            hu = getQueryString("hu_" + i)
+            hn = getQueryString("hn_" + i)
+            if (hu != null && hn != null) {
+                window.pufaData.packets.push({"user": hn, "url": hu});
+            }
+        }
+    </script>
+</head>
+<body>
+<section class="main">
+    <section class="red-clouds">
+        <!-- 云 -->
+    </section>
+    <section class="title">
+        <h1>浦发红包云服务</h1>
+    </section>
+    <section class="red-packets">
+        <div class="packet-wrap">
+            <!-- 红包 -->
+        </div>
+    </section>
+    <section class="red-info">
+        <div class="info-wrap">
+            <h3>规则说明：</h3>
+            <p>1 向微信号分享一个红包，可进入该页面获取5个红包。</p>
+            <p>3 请勿发送已经分享过的链接，否则会被拉黑。</p>
+            <p>3 如果发现空链接或者失效链接，请在微信对话中回复 JB+用户名，如 JB王小二。收到两次举报用户会被拉黑。</p>
+            <p>4 如果觉得好用请推荐朋友使用，偶尔发个红包支持一下服务器维护费用，会更有动力持久为您服务！</p>
+        </div>
+
+    </section>
+</section>
+<script type="text/javascript">!function(e){function t(n){if(r[n])return r[n].exports;var a=r[n]={exports:{},id:n,loaded:!1};return e[n].call(a.exports,a,a.exports,t),a.loaded=!0,a.exports}var r={};return t.m=e,t.c=r,t.p="",t(0)}([function(e,t,r){"use strict";r(2);for(var n=document.querySelector(".red-clouds"),a=Math.floor(5*Math.random())+3,o=0;o<a;o++){var i=Math.floor(3*Math.random())+1,s=Math.floor(300*Math.random())+10,d=50*o,u=document.createElement("div");u.classList.add("red-cloud"),u.classList.add("red-cloud-"+i),u.style.left=s+"px",u.style.top=d+"px",n.appendChild(u)}if(window.pufaData)for(var l=pufaData.packets,p=document.querySelector(".packet-wrap"),c=0;c<l.length;c++){var f=document.createElement("div");f.classList.add("red-packet"),f.innerHTML='<a href="'+l[c].url+'" target="_blank"></a><p>来自 <span>'+l[c].user+"</span></p>",p.appendChild(f)}},function(e,t,r){function n(e,t){for(var r=0;r<e.length;r++){var n=e[r],a=f[n.id];if(a){a.refs++;for(var o=0;o<a.parts.length;o++)a.parts[o](n.parts[o]);for(;o<n.parts.length;o++)a.parts.push(u(n.parts[o],t))}else{for(var i=[],o=0;o<n.parts.length;o++)i.push(u(n.parts[o],t));f[n.id]={id:n.id,refs:1,parts:i}}}}function a(e){for(var t=[],r={},n=0;n<e.length;n++){var a=e[n],o=a[0],i=a[1],s=a[2],d=a[3],u={css:i,media:s,sourceMap:d};r[o]?r[o].parts.push(u):t.push(r[o]={id:o,parts:[u]})}return t}function o(e,t){var r=h(),n=x[x.length-1];if("top"===e.insertAt)n?n.nextSibling?r.insertBefore(t,n.nextSibling):r.appendChild(t):r.insertBefore(t,r.firstChild),x.push(t);else{if("bottom"!==e.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");r.appendChild(t)}}function i(e){e.parentNode.removeChild(e);var t=x.indexOf(e);t>=0&&x.splice(t,1)}function s(e){var t=document.createElement("style");return t.type="text/css",o(e,t),t}function d(e){var t=document.createElement("link");return t.rel="stylesheet",o(e,t),t}function u(e,t){var r,n,a;if(t.singleton){var o=m++;r=g||(g=s(t)),n=l.bind(null,r,o,!1),a=l.bind(null,r,o,!0)}else e.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(r=d(t),n=c.bind(null,r),a=function(){i(r),r.href&&URL.revokeObjectURL(r.href)}):(r=s(t),n=p.bind(null,r),a=function(){i(r)});return n(e),function(t){if(t){if(t.css===e.css&&t.media===e.media&&t.sourceMap===e.sourceMap)return;n(e=t)}else a()}}function l(e,t,r,n){var a=r?"":n.css;if(e.styleSheet)e.styleSheet.cssText=v(t,a);else{var o=document.createTextNode(a),i=e.childNodes;i[t]&&e.removeChild(i[t]),i.length?e.insertBefore(o,i[t]):e.appendChild(o)}}function p(e,t){var r=t.css,n=t.media;if(n&&e.setAttribute("media",n),e.styleSheet)e.styleSheet.cssText=r;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(r))}}function c(e,t){var r=t.css,n=t.sourceMap;n&&(r+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(n))))+" */");var a=new Blob([r],{type:"text/css"}),o=e.href;e.href=URL.createObjectURL(a),o&&URL.revokeObjectURL(o)}var f={},b=function(e){var t;return function(){return"undefined"==typeof t&&(t=e.apply(this,arguments)),t}},A=b(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),h=b(function(){return document.head||document.getElementsByTagName("head")[0]}),g=null,m=0,x=[];e.exports=function(e,t){t=t||{},"undefined"==typeof t.singleton&&(t.singleton=A()),"undefined"==typeof t.insertAt&&(t.insertAt="bottom");var r=a(e);return n(r,t),function(e){for(var o=[],i=0;i<r.length;i++){var s=r[i],d=f[s.id];d.refs--,o.push(d)}if(e){var u=a(e);n(u,t)}for(var i=0;i<o.length;i++){var d=o[i];if(0===d.refs){for(var l=0;l<d.parts.length;l++)d.parts[l]();delete f[d.id]}}}};var v=function(){var e=[];return function(t,r){return e[t]=r,e.filter(Boolean).join("\n")}}()},function(e,t,r){var n=r(3);"string"==typeof n&&(n=[[e.id,n,""]]);r(1)(n,{});n.locals&&(e.exports=n.locals)},function(e,t,r){t=e.exports=r(4)(),t.push([e.id,"body,html{height:100%;background:#ee5859}body,p{margin:0;padding:0}@-webkit-keyframes cloud{0{-webkit-transform:translateZ(0);transform:translateZ(0)}50%{-webkit-transform:translate3d(10px,0,0);transform:translate3d(10px,0,0)}to{-webkit-transform:translateZ(0);transform:translateZ(0)}}@keyframes cloud{0{-webkit-transform:translateZ(0);transform:translateZ(0)}50%{-webkit-transform:translate3d(10px,0,0);transform:translate3d(10px,0,0)}to{-webkit-transform:translateZ(0);transform:translateZ(0)}}.main{-webkit-box-sizing:border-box;box-sizing:border-box;height:100%}.main .title{text-align:center;color:#fff}.main .red-packets{margin-bottom:20px}.main .red-packets .packet-wrap{width:300px;margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}.main .red-packets .red-packet{position:relative;width:80px;height:80px;margin:20px 10px;word-break:break-word}.main .red-packets .red-packet a{display:block;width:100%;height:100%;background-color:#fde0e0;-webkit-border-radius:50%;border-radius:50%;background-image:url("+r(6)+");background-size:50%;background-repeat:no-repeat;background-position:50%}.main .red-packets .red-packet p{position:absolute;color:#fff;top:85px;font-size:12px;width:100%;text-align:center}.main .red-packets .red-packet a:active,.main .red-packets .red-packet a:link{background-color:#d0c5c5}.main .red-info{max-width:300px;margin:0 auto}.main .red-info .info-wrap{padding:10px;margin:10px;border:1px solid #f6ba60;-webkit-border-radius:5px;border-radius:5px;color:#fff}.main .red-info .info-wrap p{margin:10px 0;font-size:14px}.main .red-clouds .red-cloud{width:100px;height:50px;position:fixed;opacity:.5;background:url("+r(5)+") no-repeat;-webkit-animation:cloud 4s linear infinite;animation:cloud 4s linear infinite}.main .red-clouds .red-cloud-2{background-size:80%}.main .red-clouds .red-cloud-3{background-size:50%}",""])},function(e,t){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],t=0;t<this.length;t++){var r=this[t];r[2]?e.push("@media "+r[2]+"{"+r[1]+"}"):e.push(r[1])}return e.join("")},e.i=function(t,r){"string"==typeof t&&(t=[[null,t,""]]);for(var n={},a=0;a<this.length;a++){var o=this[a][0];"number"==typeof o&&(n[o]=!0)}for(a=0;a<t.length;a++){var i=t[a];"number"==typeof i[0]&&n[i[0]]||(r&&!i[2]?i[2]=r:r&&(i[2]="("+i[2]+") and ("+r+")"),e.push(i))}},e}},function(e,t){e.exports="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAA0BAMAAACHqSDqAAAALVBMVEVHcEz////////////////////////////////////////////////////////NXt0CAAAADnRSTlMApg3WeWjtWCW0QMCajFJpv0cAAADbSURBVEjHY2AYBaNgcIH2m8bGcyOIVs5UmfcOCJ6ZNBCpPvgdFCQuIErD6ndw8IYYO1jyEBrepRLhILl3yGAHQQ2aKOrfPSsgZME+VA3vnpBmARAcwqmWo8S1SuEehoaXPtI7jy7Col51G1DW8h128PgGhnouu3f4wDMHdA1+7/CDh2jqWd8RAgdQNawjqOE5avDbEdTwWAGhXMsl5h1hEABXz273jhiwgegAgoIMuAXEqX/3CqahjUgNT2Ea7hGpAZZumfKI1PCWRC+8ewPTIEgkEB0tr0fB0AIAVWdXAH3Ns6sAAAAASUVORK5CYII="},function(e,t){e.exports="data:image/png;base64,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"}]);</script></body>
+<script type="text/javascript">
+    document.write('<a style="display:none!important" id="tanx-a-mm_121569224_20932143_70782766"></a>');
+    tanx_s = document.createElement("script");
+    tanx_s.type = "text/javascript";
+    tanx_s.charset = "gbk";
+    tanx_s.id = "tanx-s-mm_121569224_20932143_70782766";
+    tanx_s.async = true;
+    tanx_s.src = "http://p.tanx.com/ex?i=mm_121569224_20932143_70782766";
+    tanx_h = document.getElementsByTagName("head")[0];
+    if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+</script>
+</html>

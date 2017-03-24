@@ -36,25 +36,39 @@ class MyWXBot(WXBot):
             try:
                 spUrl = msg['content']['data']['url']
                 param = spUrl[spUrl.find('packetId=') + 9: spUrl.find('&amp')]
-                wxSpUrl = '''https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe9d7e3d98ec68189&redirect_uri=https://weixin.spdbccc.com.cn/spdbcccWeChatPageRedPackets/StatusDistrubServlet.do?noCheck%3D1%26status%3DJudgeOpenId%26param1%3D''' + str(param).encode("ascii") + '''&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect'''
+                hash = spUrl[spUrl.find('hash=') + 5: spUrl.find('hash=') + 7]
+                # wxSpUrl = '''https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe9d7e3d98ec68189&redirect_uri=https://weixin.spdbccc.com.cn/spdbcccWeChatPageRedPackets/StatusDistrubServlet.do?noCheck%3D1%26status%3DJudgeOpenId%26param1%3D''' \
+                #           + str(param).encode("ascii") \
+                #           + '''&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect'''
+
+                tinyParam = param + ';' + hash
 
                 # body = {'url': wxSpUrl}
                 # res = requests.post('http://suo.im/index.php?m=index&a=urlCreate', data = body).json()
                 # tinyUrl = res['list']
 
-                sinaApi = 'http://api.t.sina.com.cn/short_url/shorten.json'
-                body = {"source": 1681459862, "url_long": wxSpUrl}
-                res = requests.post(sinaApi, data = body).json()[0]
-                tinyUrl = res['url_short']
+                # sinaApi = 'http://api.t.sina.com.cn/short_url/shorten.json'
+                # body = {"source": 1681459862, "url_long": wxSpUrl}
+                # res = requests.post(sinaApi, data = body).json()[0]
+                # tinyUrl = res['url_short']
 
-                if not r.exists(tinyUrl):
+                # if not r.exists(tinyUrl):
+                if not r.exists(tinyParam):
 
                     pipe = r.pipeline()
-                    pipe.rpush("sphbList", tinyUrl)
-                    pipe.hset(tinyUrl, "cnt", 0)
-                    pipe.hset(tinyUrl, "from", msg['user']['name'])
-                    pipe.hset(tinyUrl, "fromUserId", msg['user']['id'])
+                    pipe.rpush("sphbList", tinyParam)
+                    pipe.hset(tinyParam, "cnt", 0)
+                    pipe.hset(tinyParam, "from", msg['user']['name'])
+                    pipe.hset(tinyParam, "fromUserId", msg['user']['id'])
                     pipe.execute()
+
+
+                    # pipe = r.pipeline()
+                    # pipe.rpush("sphbList", tinyUrl)
+                    # pipe.hset(tinyUrl, "cnt", 0)
+                    # pipe.hset(tinyUrl, "from", msg['user']['name'])
+                    # pipe.hset(tinyUrl, "fromUserId", msg['user']['id'])
+                    # pipe.execute()
 
                     # r.lpush("sphbList", tinyUrl)
                     # r.hset(tinyUrl, "cnt", 0)
@@ -107,8 +121,20 @@ class MyWXBot(WXBot):
                             # r.set(r.hget(url, 'fromUserId') + msg['user']['id'], 1, ex = exp)
                             # r.set(msg['user']['id'] + url, 1, ex = 1296000)
 
+                            longUrl =  '''https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe9d7e3d98ec68189&redirect_uri=https://weixin.spdbccc.com.cn/wxrp-page-redpacketsharepage/judgeOpenId?noCheck%3D1%26param1%3D''' \
+                                        + str(tinyParam.split(';')[0]).encode("ascii") \
+                                        + '''%26hash%3D''' \
+                                        + str(tinyParam.split(';')[1]).encode("ascii") \
+                                        + '''%26dataDt%3D''' \
+                                        + datetime.datetime.now().strftime('%Y%m%d') \
+                                        + '''&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect'''
 
-                            responseMsg = responseMsg + url + u" from: " + r.hget(url, 'from').decode('utf-8') + u"  "
+                            sinaApi = 'http://api.t.sina.com.cn/short_url/shorten.json'
+                            body = {"source": 1681459862, "url_long": longUrl}
+                            res = requests.post(sinaApi, data = body).json()[0]
+                            tinyUrl = res['url_short']
+
+                            responseMsg = responseMsg + tinyUrl + u" from: " + r.hget(url, 'from').decode('utf-8') + u"  "
 
                             cnt = cnt + 1
                             r.hincrby(url, 'cnt')
